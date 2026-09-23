@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <title>마음 전하실 곳</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    body {
+      position: fixed;
+      inset: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    /* =========================
+       INITIAL LOADER
+       ========================= */
+
+    .initial-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 20000;
+
+      background: #ffffff;
+
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+
+      transition:
+        opacity .45s ease-in-out,
+        visibility 0s linear .45s;
+    }
+
+    body.site-ready .initial-loader {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+
+    /* =========================
+       PAGE 4
+       ========================= */
+
+    .page4-card {
+      position: relative;
+
+      width: min(
+        100vw,
+        calc(100dvh * 1360 / 1891),
+        1360px
+      );
+
+      aspect-ratio: 1360 / 1891;
+
+      overflow: hidden;
+      background: transparent;
+    }
+
+
+    .layer {
+      position: absolute;
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: fill;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      display: block;
+    }
+
+
+    /* =========================
+       ANIMATIONS
+       ========================= */
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+
+    @keyframes title4FromLine {
+      0% {
+        transform: translateY(-2.9085%);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+
+    /* background4 : 0초 */
+
+    body.site-ready .background4 {
+      animation:
+        fadeIn 1.3s ease-in-out 0s both;
+    }
+
+
+    /* rabbit4 : 1.3초 */
+
+    body.site-ready .rabbit4 {
+      animation:
+        fadeIn 1.3s ease-in-out 1.3s both;
+    }
+
+
+    /* title4-1 : 2.6초 */
+
+    body.site-ready .title41 {
+      animation:
+        fadeIn 1.3s ease-in-out 2.6s both;
+    }
+
+
+    /* =========================
+       TITLE 4-2 REVEAL
+       ========================= */
+
+    .title4-reveal {
+      position: absolute;
+      inset: 0;
+
+      z-index: 20;
+
+      overflow: hidden;
+
+      visibility: hidden;
+
+      pointer-events: none;
+
+      clip-path:
+        inset(30.4072% 0 0 0);
+    }
+
+
+    .title4-reveal .title42 {
+      position: absolute;
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: fill;
+
+      display: none;
+
+      opacity: 0;
+
+      visibility: hidden;
+
+      pointer-events: none;
+    }
+
+
+    body.site-ready.title4-ready
+    .title4-reveal {
+      visibility: visible;
+    }
+
+
+    body.site-ready.title4-ready
+    .title4-reveal
+    .title42 {
+      display: block;
+
+      opacity: 1;
+
+      visibility: visible;
+
+      animation:
+        title4FromLine
+        1.3s
+        linear
+        both;
+    }
+
+
+    /* account4 : 5.2초 */
+
+    body.site-ready .account4 {
+      animation:
+        fadeIn
+        1.3s
+        ease-in-out
+        5.2s
+        both;
+    }
+
+
+    /* =========================
+       ACCOUNT CLICK AREAS
+       ========================= */
+
+    .account-click {
+      position: absolute;
+
+      z-index: 80;
+
+      border: 0;
+      outline: 0;
+
+      background: transparent;
+
+      cursor: pointer;
+
+      -webkit-tap-highlight-color: transparent;
+
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+
+    .account-kb {
+      left: 30.5147%;
+      top: 42.6230%;
+
+      width: 38.5294%;
+      height: 2.0624%;
+    }
+
+
+    .account-woori {
+      left: 30.8824%;
+      top: 52.7763%;
+
+      width: 37.7206%;
+      height: 2.1153%;
+    }
+
+
+    .account-hana {
+      left: 32.7206%;
+      top: 60.4971%;
+
+      width: 34.4118%;
+      height: 2.0624%;
+    }
+
+
+    /* =========================
+       COPY TOAST
+       ========================= */
+
+    .copy-toast {
+      position: fixed;
+
+      left: 50%;
+
+      bottom:
+        max(
+          30px,
+          calc(
+            env(safe-area-inset-bottom)
+            + 18px
+          )
+        );
+
+      z-index: 20000;
+
+      padding: 10px 17px;
+
+      border-radius: 999px;
+
+      color: #ffffff;
+
+      background:
+        rgba(0, 0, 0, .58);
+
+      font-family:
+        "Apple SD Gothic Neo",
+        sans-serif;
+
+      font-size: 14px;
+
+      letter-spacing: -.02em;
+
+      white-space: nowrap;
+
+      pointer-events: none;
+
+      opacity: 0;
+
+      transform:
+        translate(-50%, 8px);
+    }
+
+
+    .copy-toast.show {
+      animation:
+        copyToastFade
+        1.55s
+        ease-in-out
+        both;
+    }
+
+
+    @keyframes copyToastFade {
+      0% {
+        opacity: 0;
+
+        transform:
+          translate(-50%, 8px);
+      }
+
+      18%,
+      70% {
+        opacity: .92;
+
+        transform:
+          translate(-50%, 0);
+      }
+
+      100% {
+        opacity: 0;
+
+        transform:
+          translate(-50%, -3px);
+      }
+    }
+
+
+    /* =========================
+       BGM BUTTON
+       ========================= */
+
+    .bgm-btn {
+      position: fixed;
+
+      top:
+        max(
+          20px,
+          env(safe-area-inset-top)
+        );
+
+      left:
+        max(
+          20px,
+          env(safe-area-inset-left)
+        );
+
+      z-index: 10000;
+
+      width: 36px;
+      height: 36px;
+
+      border-radius: 50%;
+
+      border:
+        1px solid
+        rgba(0, 0, 0, .1);
+
+      background:
+        rgba(255, 255, 255, .7);
+
+      display: grid;
+      place-items: center;
+
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+
+      cursor: pointer;
+
+      -webkit-tap-highlight-color:
+        transparent;
+    }
+
+
+    .bgm-btn svg {
+      width: 18px;
+      height: 18px;
+
+      fill: #555555;
+    }
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       LOADER
+       ========================= -->
+
+  <div
+    class="initial-loader"
+    aria-hidden="true"
+  ></div>
+
+
+
+  <!-- =========================
+       BGM
+       ========================= -->
+
+  <audio
+    id="bgm"
+    src="bgm.mp3"
+    loop
+    preload="auto"
+  ></audio>
+
+
+  <button
+    class="bgm-btn"
+    id="bgmBtn"
+    type="button"
+    aria-label="음악 켜기/끄기"
+  >
+
+    <svg
+      id="musicIcon"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+
+      <path
+        d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"
+      ></path>
+
+    </svg>
+
+  </button>
+
+
+
+  <!-- =========================
+       PAGE 4
+       ========================= -->
+
+  <main class="page4-card">
+
+
+    <img
+      src="background4.png"
+      class="layer background4"
+      alt=""
+    >
+
+
+    <img
+      src="rabbit4.png"
+      class="layer rabbit4"
+      alt=""
+    >
+
+
+    <img
+      src="title4-1.png"
+      class="layer title41"
+      alt=""
+    >
+
+
+    <div class="title4-reveal">
+
+      <img
+        src="title4-2.png"
+        class="title42"
+        alt=""
+      >
+
+    </div>
+
+
+    <img
+      src="account4.png"
+      class="layer account4"
+      alt=""
+    >
+
+
+
+    <!-- 국민은행 -->
+
+    <button
+      class="account-click account-kb"
+      type="button"
+      data-account="27010204218011"
+      aria-label="국민은행 계좌번호 복사"
+    ></button>
+
+
+
+    <!-- 우리은행 -->
+
+    <button
+      class="account-click account-woori"
+      type="button"
+      data-account="1002239470141"
+      aria-label="우리은행 계좌번호 복사"
+    ></button>
+
+
+
+    <!-- 하나은행 -->
+
+    <button
+      class="account-click account-hana"
+      type="button"
+      data-account="29819040468"
+      aria-label="하나은행 계좌번호 복사"
+    ></button>
+
+
+  </main>
+
+
+
+  <!-- =========================
+       COPY TOAST
+       ========================= -->
+
+  <div
+    class="copy-toast"
+    id="copyToast"
+    role="status"
+    aria-live="polite"
+  >
+    계좌번호가 복사되었습니다.
+  </div>
+
+
+
+  <script>
+
+    /* ========================================
+       PAGE 4 IMAGE LOADING
+       ======================================== */
+
+    const pageImages =
+      Array.from(
+        document.querySelectorAll(
+          '.page4-card img'
+        )
+      );
+
+
+    function waitImage(img) {
+
+      if (
+        img.complete &&
+        img.naturalWidth > 0
+      ) {
+        return Promise.resolve();
+      }
+
+
+      return new Promise(
+        (resolve) => {
+
+          const done = () => {
+            resolve();
+          };
+
+
+          img.addEventListener(
+            'load',
+            done,
+            { once: true }
+          );
+
+
+          img.addEventListener(
+            'error',
+            done,
+            { once: true }
+          );
+
+        }
+      );
+
+    }
+
+
+
+    Promise
+      .all(
+        pageImages.map(waitImage)
+      )
+      .finally(() => {
+
+        requestAnimationFrame(() => {
+
+          document.body
+            .classList
+            .add('site-ready');
+
+
+          /*
+            기존 Page4와 동일:
+            title4-2는 3.9초에 시작
+          */
+
+          setTimeout(() => {
+
+            document.body
+              .classList
+              .add('title4-ready');
+
+          }, 3900);
+
+        });
+
+      });
+
+
+
+    /* ========================================
+       BGM
+       ======================================== */
+
+    const bgm =
+      document.getElementById('bgm');
+
+
+    const bgmBtn =
+      document.getElementById('bgmBtn');
+
+
+    const musicIcon =
+      document.getElementById(
+        'musicIcon'
+      );
+
+
+    let isPlaying = false;
+
+
+
+    const iconPlaying =
+      '<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"></path>';
+
+
+
+    const iconMuted =
+      '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"></path>';
+
+
+
+    function playAudio() {
+
+      bgm
+        .play()
+        .then(() => {
+
+          isPlaying = true;
+
+          musicIcon.innerHTML =
+            iconPlaying;
+
+        })
+        .catch(() => {
+
+          /*
+            Safari / Chrome 자동재생 제한 시
+            첫 사용자 터치를 기다림
+          */
+
+        });
+
+    }
+
+
+
+    function pauseAudio() {
+
+      bgm.pause();
+
+      isPlaying = false;
+
+      musicIcon.innerHTML =
+        iconMuted;
+
+    }
+
+
+
+    function toggleBgm() {
+
+      if (isPlaying) {
+
+        pauseAudio();
+
+      } else {
+
+        playAudio();
+
+      }
+
+    }
+
+
+
+    bgmBtn.addEventListener(
+      'click',
+      (event) => {
+
+        /*
+          첫 터치용 이벤트와
+          중복 실행 방지
+        */
+
+        event.stopPropagation();
+
+        toggleBgm();
+
+      }
+    );
+
+
+
+    /*
+      페이지가 열린 직후에도
+      일단 재생을 시도한다.
+
+      허용된 브라우저에서는 바로 재생.
+      iPhone Safari가 막으면 첫 터치에서 재생.
+    */
+
+    playAudio();
+
+
+
+    function firstUserInteraction() {
+
+      if (!isPlaying) {
+
+        playAudio();
+
+      }
+
+
+      window.removeEventListener(
+        'pointerdown',
+        firstUserInteraction
+      );
+
+
+      window.removeEventListener(
+        'touchstart',
+        firstUserInteraction
+      );
+
+
+      window.removeEventListener(
+        'click',
+        firstUserInteraction
+      );
+
+    }
+
+
+
+    window.addEventListener(
+      'pointerdown',
+      firstUserInteraction,
+      {
+        passive: true,
+        once: true
+      }
+    );
+
+
+    window.addEventListener(
+      'touchstart',
+      firstUserInteraction,
+      {
+        passive: true,
+        once: true
+      }
+    );
+
+
+    window.addEventListener(
+      'click',
+      firstUserInteraction,
+      {
+        once: true
+      }
+    );
+
+
+
+    /*
+      Safari에서 다른 화면 갔다가
+      돌아온 경우 실제 재생 상태와
+      버튼 상태 동기화
+    */
+
+    bgm.addEventListener(
+      'play',
+      () => {
+
+        isPlaying = true;
+
+        musicIcon.innerHTML =
+          iconPlaying;
+
+      }
+    );
+
+
+    bgm.addEventListener(
+      'pause',
+      () => {
+
+        isPlaying = false;
+
+        musicIcon.innerHTML =
+          iconMuted;
+
+      }
+    );
+
+
+
+    /* ========================================
+       ACCOUNT COPY
+       ======================================== */
+
+    const copyToast =
+      document.getElementById(
+        'copyToast'
+      );
+
+
+    let toastTimer = null;
+
+
+
+    function fallbackCopy(text) {
+
+      const textarea =
+        document.createElement(
+          'textarea'
+        );
+
+
+      textarea.value = text;
+
+      textarea.setAttribute(
+        'readonly',
+        ''
+      );
+
+
+      textarea.style.position =
+        'fixed';
+
+      textarea.style.left =
+        '-9999px';
+
+      textarea.style.opacity =
+        '0';
+
+
+      document.body.appendChild(
+        textarea
+      );
+
+
+      textarea.select();
+
+
+      textarea.setSelectionRange(
+        0,
+        text.length
+      );
+
+
+      document.execCommand(
+        'copy'
+      );
+
+
+      textarea.remove();
+
+    }
+
+
+
+    async function copyAccountNumber(
+      value
+    ) {
+
+      const digitsOnly =
+        String(value)
+          .replace(/\D/g, '');
+
+
+      try {
+
+        if (
+          navigator.clipboard &&
+          window.isSecureContext
+        ) {
+
+          await navigator
+            .clipboard
+            .writeText(
+              digitsOnly
+            );
+
+        } else {
+
+          fallbackCopy(
+            digitsOnly
+          );
+
+        }
+
+
+        if (toastTimer) {
+
+          clearTimeout(
+            toastTimer
+          );
+
+        }
+
+
+        copyToast
+          .classList
+          .remove('show');
+
+
+        void copyToast.offsetWidth;
+
+
+        copyToast
+          .classList
+          .add('show');
+
+
+        toastTimer =
+          setTimeout(() => {
+
+            copyToast
+              .classList
+              .remove('show');
+
+            toastTimer = null;
+
+          }, 1550);
+
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    }
+
+
+
+    document
+      .querySelectorAll(
+        '.account-click'
+      )
+      .forEach((button) => {
+
+        button.addEventListener(
+          'click',
+          (event) => {
+
+            event.stopPropagation();
+
+
+            copyAccountNumber(
+              button.dataset.account
+            );
+
+          }
+        );
+
+      });
+
+  </script>
+
+</body>
+</html>
